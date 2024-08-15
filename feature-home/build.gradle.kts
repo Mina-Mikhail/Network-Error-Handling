@@ -73,6 +73,11 @@ dependencies {
   // Core Modules
   implementation(projects.core.ui)
   implementation(projects.core.network)
+
+  // Testing
+  testImplementation(libs.junit)
+  androidTestImplementation(libs.androidx.junit)
+  testImplementation(libs.kotlinFixture)
 }
 
 // To run "ktlintFormat" before run the app

@@ -83,8 +83,6 @@ dependencies {
   // Testing
   testImplementation(libs.junit)
   androidTestImplementation(libs.androidx.junit)
-
-  // Kotlin Fixture Library
   testImplementation(libs.kotlinFixture)
 }
 
