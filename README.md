@@ -42,21 +42,21 @@ A sample app that demonstrates usage of Retrofit Adapters to handle api response
 :point_right: Clean Architecture:
 -----------------
 <div align="center">
-<img src="https://github.com/Mina-Mikhail/Network-Error-Handling/blob/master/images/architecture.png">
+<img src="https://github.com/Mina-Mikhail/Network-Error-Handling/blob/master/images/img_architecture.png">
 </div>
 
 
 :point_right: Domain & Data Layer:
 -----------------
 <div align="center">
-<img src="https://github.com/Mina-Mikhail/Network-Error-Handling/blob/master/images/data_layer.png">
+<img src="https://github.com/Mina-Mikhail/Network-Error-Handling/blob/master/images/img_data_layer.png">
 </div>
 
 
 :point_right: Presentation Layer:
 -----------------
 <div align="center">
-<img src="https://github.com/Mina-Mikhail/Network-Error-Handling/blob/master/images/ui_layer.png">
+<img src="https://github.com/Mina-Mikhail/Network-Error-Handling/blob/master/images/img_ui_layer.png">
 </div>
 
 
