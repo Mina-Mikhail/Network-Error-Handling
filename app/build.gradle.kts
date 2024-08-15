@@ -31,14 +31,17 @@ android {
     minSdk = rootProject.extra.get("minSdk") as Int
     targetSdk = rootProject.extra.get("compileSdk") as Int
     versionCode = rootProject.extra.get("versionCode") as Int
-    versionName = (rootProject.extra["versionName"]).toString()
+    versionName = rootProject.extra["versionName"] as String
 
     testInstrumentationRunner = rootProject.extra["testRunner"] as String
   }
 
   buildTypes {
     getByName("${rootProject.extra.get("releaseBuildType")}") {
-      proguardFiles(getDefaultProguardFile("proguard-android.txt"), "${rootProject.extra.get("proguardFile")}")
+      proguardFiles(
+        getDefaultProguardFile("proguard-android.txt"),
+        "${rootProject.extra.get("proguardFile")}"
+      )
 
       isMinifyEnabled = true
       isShrinkResources = true
