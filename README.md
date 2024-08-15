@@ -74,24 +74,26 @@ A sample app that demonstrates usage of Retrofit Adapters to handle api response
 
 :point_right: Tech Stack & Libraries:
 -----------------
-- Navigation component - For navigation graph for navigating and replacing screens/fragments
-- ViewBinding - Allows to more easily write code that interacts with views and replaces ```findViewById```.
-- ViewModel - UI related data holder, lifecycle aware.
-- Flow & StateFlow - Build data objects that notify views when the underlying database changes.
-- Dagger-Hilt - For dependency injection. Object creation and scoping is handled by Hilt.
-- Kotlin Coroutines - For managing background threads with simplified code and reducing needs for callbacks
-- Retrofit2 & OkHttp3 - To make REST requests to the web service integrated.
-- Gson - For parsing json objects.
+- [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) : UI related data holder, lifecycle aware.
+- [Flow & StateFlow](https://developer.android.com/kotlin/flow) : Build data objects that notify views when the underlying database changes.
+- [KotlinCoroutines](https://developer.android.com/kotlin/coroutines) : For managing background threads with simplified code and reducing needs for callbacks.
+- [NavigationComponent](https://developer.android.com/guide/navigation) : For navigation graph for navigating and replacing screens/fragments.
+- [MaterialDesign](https://m2.material.io/develop/android) : Use material design components in XML Design.
+- [ViewBinding](https://developer.android.com/topic/libraries/view-binding) : Allows to more easily write code that interacts with views and replaces ```findViewById```.
+- [Dagger-Hilt](https://developer.android.com/training/dependency-injection/hilt-android) : For dependency injection. Object creation and scoping is handled by Hilt.
+- [Retrofit2 & OkHttp3](https://square.github.io/retrofit/) : To make REST requests to the web service integrated.
+- [Gson](https://github.com/google/gson) : For parsing and serializing objects.
+- [JUnit](https://developer.android.com/training/testing/local-tests) : For unit testing.
+- [KotlinFixture](https://github.com/Mina-Mikhail/kotlinFixture) : For creating dummy objects for unit testing.
 
 
-:point_right: Project Modules:
+:point_right: Modules:
 -----------------
-- Here is more information about project modules :
-  - App - The main app module, contains splash screen and handle navigation across the app.
-  - Core : Network - Handles network calls with it's errors.
-  - Core : UI - Contains classes related to UI like BaseActivity and BaseFragment and other useful ui extensions.
-  - Core : Utils - Contains utility classes and some extensoins related to business usage.
-  - Feature : Home - Copntains data, domain, presentation for home feature.
+- [app](https://github.com/Mina-Mikhail/Network-Error-Handling/tree/main/app) : The main app module, contains splash screen and handle navigation across the app.
+- [core:network](https://github.com/Mina-Mikhail/Network-Error-Handling/tree/main/core/network) : Handles network calls with it's errors.
+- [core:ui](https://github.com/Mina-Mikhail/Network-Error-Handling/tree/main/core/ui) : Contains classes related to UI like BaseActivity and BaseFragment and other useful ui extensions.
+- [core:utils](https://github.com/Mina-Mikhail/Network-Error-Handling/tree/main/core/utils) : Contains utility classes and some exceptions related to business usage.
+- [feature-home](https://github.com/Mina-Mikhail/Network-Error-Handling/tree/main/feature-home) : Contains data, domain, presentation for home feature.
 
 
 :point_right: Code Style:
@@ -108,7 +110,8 @@ A sample app that demonstrates usage of Retrofit Adapters to handle api response
 :point_right: Contributing to Project:
 -----------
 - Just fork this repository and contribute back using pull requests.
-- Any contributions, large or small, major features, bug fixes, are welcomed and appreciated but will be thoroughly reviewed .
+- Any contributions, large or small, major features, bug fixes, are welcomed and appreciated but
+  will be thoroughly reviewed .
 
 
 :point_right: Find this project useful ? :heart:
@@ -128,14 +131,16 @@ A sample app that demonstrates usage of Retrofit Adapters to handle api response
 
 :point_right: Donation:
 -----------
-If this project help you reduce time to develop, you can give me a cup of coffee :) 
+If this project help you reduce time to develop, you can give me a cup of coffee :)
 
 <a href="https://www.buymeacoffee.com/mina.mikhail" target="_blank"><img src="https://bmc-cdn.nyc3.digitaloceanspaces.com/BMC-button-images/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a>
 
-
+<br>
+<br>
 
 :warning: License:
 --------
+
 ```
    Copyright (C) 2024 MINA MIKHAIL PRIVATE LIMITED
 
