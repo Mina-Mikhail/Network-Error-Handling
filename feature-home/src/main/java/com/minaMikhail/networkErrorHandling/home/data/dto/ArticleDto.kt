@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.minaMikhail.networkErrorHandling.home.data.entity
+package com.minaMikhail.networkErrorHandling.home.data.dto
 
 import com.google.gson.annotations.SerializedName
 

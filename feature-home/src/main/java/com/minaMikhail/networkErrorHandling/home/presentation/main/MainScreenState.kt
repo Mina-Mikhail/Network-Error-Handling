@@ -19,9 +19,16 @@ package com.minaMikhail.networkErrorHandling.home.presentation.main
 import com.minaMikhail.networkErrorHandling.home.domain.model.Article
 
 sealed class MainScreenState {
+
+  data object Default : MainScreenState()
+
   data object Loading : MainScreenState()
 
-  data class Success(val articles: List<Article>) : MainScreenState()
+  data class Success(
+    val articles: List<Article>
+  ) : MainScreenState()
 
-  data class Error(val throwable: Throwable) : MainScreenState()
+  data class Error(
+    val throwable: Throwable
+  ) : MainScreenState()
 }

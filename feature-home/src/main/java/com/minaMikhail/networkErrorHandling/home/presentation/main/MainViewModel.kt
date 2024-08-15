@@ -40,11 +40,19 @@ class MainViewModel @Inject constructor(
   private val _mainScreenState = MutableSharedFlow<MainScreenState>()
   val mainScreenState: SharedFlow<MainScreenState> get() = _mainScreenState
 
-  fun getArticles(
-    pageSize: Int,
-    page: Int,
-    query: String
-  ) {
+  fun handleIntent(intent: MainScreenIntent) {
+    when (intent) {
+      is MainScreenIntent.LoadData -> {
+        getArticles(
+          pageSize = intent.pageSize,
+          page = intent.page,
+          query = intent.query
+        )
+      }
+    }
+  }
+
+  private fun getArticles(pageSize: Int, page: Int, query: String) {
     viewModelScope.launch(ioDispatcher) {
       withContext(mainDispatcher) {
         _mainScreenState.emit(MainScreenState.Loading)

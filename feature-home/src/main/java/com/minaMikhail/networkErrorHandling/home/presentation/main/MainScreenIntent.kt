@@ -14,19 +14,13 @@
  * limitations under the License.
  */
 
-package com.minaMikhail.networkErrorHandling.home.data.dataSource.remote
+package com.minaMikhail.networkErrorHandling.home.presentation.main
 
-import com.minaMikhail.networkErrorHandling.home.data.dto.ArticleDto
-import com.minaMikhail.networkErrorHandling.network.model.BaseResponse
-import retrofit2.http.GET
-import retrofit2.http.Query
+sealed class MainScreenIntent {
 
-interface HomeServices {
-
-  @GET("everything")
-  suspend fun getArticles(
-    @Query("pageSize") pageSize: Int,
-    @Query("page") page: Int,
-    @Query("q") query: String
-  ): Result<BaseResponse<List<ArticleDto>>>
+  data class LoadData(
+    val pageSize: Int,
+    val page: Int,
+    val query: String
+  ) : MainScreenIntent()
 }

@@ -16,7 +16,7 @@
 
 package com.minaMikhail.networkErrorHandling.home.data.mapper
 
-import com.minaMikhail.networkErrorHandling.home.data.entity.ArticleDto
+import com.minaMikhail.networkErrorHandling.home.data.dto.ArticleDto
 import com.minaMikhail.networkErrorHandling.home.domain.model.Article
 import com.minaMikhail.networkErrorHandling.utils.mappers.DomainMapper
 import com.minaMikhail.networkErrorHandling.utils.providers.timeUtilsProvider.DateTimeFormat

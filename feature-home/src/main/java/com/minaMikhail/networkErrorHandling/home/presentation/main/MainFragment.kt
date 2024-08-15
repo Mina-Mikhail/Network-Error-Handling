@@ -43,7 +43,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(
   override fun FragmentMainBinding.initializeUI() {
     setupRecyclerView()
 
-    getArticles()
+    loadData()
 
     onBackPressedCustomAction {
       requireActivity().finish()
@@ -58,17 +58,21 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(
     }
   }
 
-  private fun getArticles() {
-    viewModel.getArticles(
-      pageSize = 10,
-      page = 1,
-      query = "Bitcoin"
+  private fun loadData() {
+    viewModel.handleIntent(
+      MainScreenIntent.LoadData(
+        pageSize = 10,
+        page = 1,
+        query = "Bitcoin"
+      )
     )
   }
 
   override fun setupObservers() {
     collect(viewModel.mainScreenState) {
       when (it) {
+        MainScreenState.Default -> {}
+
         MainScreenState.Loading -> {
           showDataLoading()
         }

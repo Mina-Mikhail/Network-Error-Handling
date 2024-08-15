@@ -1,5 +1,5 @@
--keepclassmembers class com.minaMikhail.networkErrorHandling.home.data.entity.** { *; }
--keep class com.minaMikhail.networkErrorHandling.home.data.entity.** { *; }
+-keepclassmembers class com.minaMikhail.networkErrorHandling.home.data.dto.** { *; }
+-keep class com.minaMikhail.networkErrorHandling.home.data.dto.** { *; }
 
 -dontwarn com.minaMikhail.networkErrorHandling.home.R$color
 -dontwarn com.minaMikhail.networkErrorHandling.home.R$string
