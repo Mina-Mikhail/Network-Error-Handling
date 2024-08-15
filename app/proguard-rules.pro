@@ -1,0 +1,6 @@
+-dontwarn com.google.android.material.R$id
+-dontwarn io.reactivex.Observable
+-dontwarn io.reactivex.Scheduler
+-dontwarn io.reactivex.android.schedulers.AndroidSchedulers
+-dontwarn io.reactivex.disposables.Disposable
+-dontwarn io.reactivex.functions.Consumer

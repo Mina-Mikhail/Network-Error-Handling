@@ -1,0 +1,49 @@
+<resources>
+  <!-- Base application theme. -->
+  <style name="Theme.MyApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <!-- Primary brand color. -->
+    <item name="colorPrimary">@color/appColorPrimary</item>
+    <item name="colorPrimaryVariant">@color/appColorPrimaryDark</item>
+    <item name="colorOnPrimary">@color/white</item>
+    <!-- Secondary brand color. -->
+    <item name="colorSecondary">@color/appColorPrimary</item>
+    <item name="colorSecondaryVariant">@color/appColorPrimaryDark</item>
+    <item name="colorOnSecondary">@color/black</item>
+    <!-- Status bar color. -->
+    <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+
+    <!-- App Font -->
+    <item name="fontFamily">@font/poppins_light</item>
+
+    <item name="android:windowContentTransitions">true</item>
+
+    <item name="android:windowActionBarOverlay">true</item>
+  </style>
+
+  <style name="TextBoldFont14">
+    <item name="android:textSize">@dimen/text_size14</item>
+    <item name="android:textStyle">bold</item>
+    <item name="fontFamily">@font/poppins_bold</item>
+  </style>
+
+  <style name="TextMediumFont12">
+    <item name="android:textSize">@dimen/text_size12</item>
+    <item name="fontFamily">@font/poppins_medium</item>
+  </style>
+
+  <style name="TextMediumFont16">
+    <item name="android:textSize">@dimen/text_size16</item>
+    <item name="fontFamily">@font/poppins_medium</item>
+  </style>
+
+  <style name="TextRegularFont14">
+    <item name="android:textSize">@dimen/text_size14</item>
+    <item name="fontFamily">@font/poppins_light</item>
+  </style>
+
+  <style name="CircleImageView">
+    <item name="cornerFamily">rounded</item>
+    <item name="cornerSize">50%</item>
+  </style>
+
+</resources>

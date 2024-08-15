@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!-- Splash -->
+  <string name="just_a_second">Just a second</string>
+  <string name="we_re_loading">We’re loading!</string>
+
+</resources>

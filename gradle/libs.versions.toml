@@ -1,0 +1,96 @@
+[versions]
+# Gradle Plugins
+androidGradlePlugin = "8.3.2"
+kotlin = "2.0.0"
+ksp = "2.0.0-1.0.21"
+ktLint = "11.5.1"
+
+# Support
+appcompat = "1.7.0"
+coreKtx = "1.13.1"
+supportVersion = "1.0.0"
+
+# Arch Components
+lifecycle = "2.8.4"
+
+# Kotlin Coroutines
+kotlinCoroutines = "1.7.3"
+
+# Networking
+retrofit = "2.11.0"
+gson = "2.10.1"
+okHttp = "4.12.0"
+
+# UI
+materialDesign = "1.12.0"
+androidNavigationVersion = "2.7.7"
+alerter = "7.2.4"
+
+# Hilt
+hiltVersion = "2.51.1"
+
+# Utils
+javaInject = "1"
+
+# Testing
+junit = "4.13.2"
+junitVersion = "1.2.1"
+kotlinFixture = "1.0.1"
+
+
+[libraries]
+# Support
+appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
+coreKtx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
+androidSupport = { module = "androidx.legacy:legacy-support-v4", version.ref = "supportVersion" }
+
+# Kotlin
+coroutinesCore = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinCoroutines" }
+coroutinesAndroid = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinCoroutines" }
+
+# Arch Components
+viewModel = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
+lifeData = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycle" }
+lifecycle = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycle" }
+viewModelState = { module = "androidx.lifecycle:lifecycle-viewmodel-savedstate", version.ref = "lifecycle" }
+
+# Networking
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
+gsonConverter = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
+interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okHttp" }
+
+# UI
+materialDesign = { module = "com.google.android.material:material", version.ref = "materialDesign" }
+navigationFragment = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "androidNavigationVersion" }
+navigationUI = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "androidNavigationVersion" }
+alerter = { module = "com.github.tapadoo:alerter", version.ref = "alerter" }
+
+# Hilt
+hilt = { module = "com.google.dagger:hilt-android", version.ref = "hiltVersion" }
+hiltDaggerCompiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hiltVersion" }
+
+# Utils
+javaInject = { module = "javax.inject:javax.inject", version.ref = "javaInject" }
+
+# Testing
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+kotlinFixture = { group = "io.github.mina-mikhail.kotlinFixture", name = "kotlinFixture", version.ref = "kotlinFixture"}
+
+
+[bundles]
+archComponents = ["viewModel", "lifeData", "lifecycle", "viewModelState"]
+networking = ["retrofit", "interceptor", "gson", "gsonConverter"]
+navigationComponent = ["navigationFragment", "navigationUI"]
+kotlinCoroutines = ["coroutinesCore", "coroutinesAndroid"]
+
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
+android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
+kotlin-plugin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hiltVersion" }
+navigation-safeargs = { id = "androidx.navigation.safeargs", version.ref = "androidNavigationVersion" }
+ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktLint" }

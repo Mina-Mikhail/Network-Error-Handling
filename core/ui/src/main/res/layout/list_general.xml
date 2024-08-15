@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="vertical">
+
+  <LinearLayout
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <LinearLayout
+      android:id="@+id/emptyViewContainer"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:gravity="center"
+      android:orientation="vertical"
+      android:visibility="gone"
+      tools:ignore="UseCompoundDrawables"
+      tools:visibility="visible">
+
+      <ImageView
+        android:layout_width="@dimen/dimen200"
+        android:layout_height="@dimen/dimen200"
+        app:srcCompat="@drawable/bg_no_data"
+        tools:ignore="ContentDescription" />
+
+      <TextView
+        android:id="@+id/tvNoResult"
+        style="@style/TextMediumFont16"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dimen6"
+        android:gravity="center"
+        android:text="@string/list_no_result"
+        android:textColor="@color/darkGray" />
+
+    </LinearLayout>
+
+    <LinearLayout
+      android:id="@+id/internetErrorViewContainer"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:gravity="center"
+      android:orientation="vertical"
+      android:visibility="gone"
+      tools:ignore="UseCompoundDrawables">
+
+      <ImageView
+        android:layout_width="@dimen/dimen200"
+        android:layout_height="@dimen/dimen200"
+        android:layout_marginBottom="@dimen/dimen5"
+        app:srcCompat="@drawable/bg_no_internet"
+        tools:ignore="ContentDescription" />
+
+      <TextView
+        style="@style/TextMediumFont16"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dimen6"
+        android:gravity="center"
+        android:text="@string/no_internet"
+        android:textColor="@color/darkGray" />
+
+    </LinearLayout>
+
+    <ProgressBar
+      android:id="@+id/progressBar"
+      android:layout_width="@dimen/dimen70"
+      android:layout_height="@dimen/dimen70"
+      android:layout_gravity="center"
+      android:indeterminateTint="@color/appColorPrimaryDark" />
+
+  </LinearLayout>
+
+  <androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/recyclerView"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    android:clipToPadding="false"
+    android:visibility="gone" />
+
+  <ProgressBar
+    android:id="@+id/paginationProgressBar"
+    android:layout_width="@dimen/dimen50"
+    android:layout_height="@dimen/dimen50"
+    android:layout_gravity="center"
+    android:layout_marginBottom="@dimen/dimen12"
+    android:indeterminateTint="@color/appColorPrimaryDark"
+    android:visibility="gone" />
+
+</LinearLayout>
