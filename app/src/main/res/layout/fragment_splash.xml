@@ -16,6 +16,8 @@
   <com.google.android.material.imageview.ShapeableImageView
     android:layout_width="@dimen/dimen100"
     android:layout_height="@dimen/dimen100"
+    android:elevation="@dimen/dimen3"
+    android:layout_margin="@dimen/dimen10"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
