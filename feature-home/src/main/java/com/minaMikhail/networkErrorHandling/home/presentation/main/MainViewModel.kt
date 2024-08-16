@@ -25,8 +25,8 @@ import com.minaMikhail.networkErrorHandling.utils.coroutineDispatchers.MainDispa
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -37,8 +37,8 @@ class MainViewModel @Inject constructor(
   private val getArticlesUseCase: GetArticlesUseCase
 ) : BaseViewModel() {
 
-  private val _mainScreenState = MutableSharedFlow<MainScreenState>()
-  val mainScreenState: SharedFlow<MainScreenState> get() = _mainScreenState
+  private val _mainScreenState = MutableStateFlow<MainScreenState>(MainScreenState.Default)
+  val mainScreenState: StateFlow<MainScreenState> get() = _mainScreenState
 
   fun handleIntent(intent: MainScreenIntent) {
     when (intent) {
