@@ -14,14 +14,17 @@
  * limitations under the License.
  */
 
-package com.minaMikhail.networkErrorHandling.network.responseParser.di
+package com.minaMikhail.networkErrorHandling.network.responseParser.success
 
-import javax.inject.Qualifier
+import com.minaMikhail.networkErrorHandling.network.model.ErrorResponse
+import com.minaMikhail.networkErrorHandling.network.utils.NetworkResult
+import java.lang.reflect.Type
+import retrofit2.Response
 
-@Retention(AnnotationRetention.BINARY)
-@Qualifier
-annotation class SuccessResponseParser
+interface SuccessResponseParser {
 
-@Retention(AnnotationRetention.BINARY)
-@Qualifier
-annotation class FailureResponseParser
+  fun <S, F : ErrorResponse> parse(
+    successBodyType: Type,
+    response: Response<S>
+  ): NetworkResult<S, F>
+}

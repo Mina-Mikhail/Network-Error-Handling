@@ -16,7 +16,9 @@
 
 package com.minaMikhail.networkErrorHandling.home.presentation.main
 
+import com.minaMikhail.networkErrorHandling.home.data.dto.ArticlesErrorResponse
 import com.minaMikhail.networkErrorHandling.home.domain.model.Article
+import com.minaMikhail.networkErrorHandling.network.enums.NetworkError
 
 sealed class MainScreenState {
 
@@ -29,6 +31,10 @@ sealed class MainScreenState {
   ) : MainScreenState()
 
   data class Error(
-    val throwable: Throwable
+    val errorResponse: ArticlesErrorResponse?,
+    val throwable: Throwable?,
+    val code: Int? = null,
+    val errorType: NetworkError,
+    val errorMessage: String? = null
   ) : MainScreenState()
 }

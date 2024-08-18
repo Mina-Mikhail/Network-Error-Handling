@@ -16,27 +16,33 @@
 
 package com.minaMikhail.networkErrorHandling.network.adapter
 
-import com.minaMikhail.networkErrorHandling.network.call.ResultCallDelegate
-import com.minaMikhail.networkErrorHandling.network.responseParser.ResponseParser
-import com.minaMikhail.networkErrorHandling.network.responseParser.di.FailureResponseParser
-import com.minaMikhail.networkErrorHandling.network.responseParser.di.SuccessResponseParser
+import com.minaMikhail.networkErrorHandling.network.call.NetworkResultCall
+import com.minaMikhail.networkErrorHandling.network.model.ErrorResponse
+import com.minaMikhail.networkErrorHandling.network.responseParser.failure.FailureResponseParser
+import com.minaMikhail.networkErrorHandling.network.responseParser.success.SuccessResponseParser
+import com.minaMikhail.networkErrorHandling.network.utils.NetworkResult
 import com.minaMikhail.networkErrorHandling.utils.providers.resourceProvider.ResourceProvider
 import java.lang.reflect.Type
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.CallAdapter
+import retrofit2.Converter
 
-internal class ApiCallAdapter<T : Any>(
-  private val successType: Type,
+internal class ApiCallAdapter<S, F : ErrorResponse>(
+  private val successBodyType: Type,
+  private val errorBodyConverter: Converter<ResponseBody, F>,
   private val resourceProvider: ResourceProvider,
-  @SuccessResponseParser private val successResponseParser: ResponseParser,
-  @FailureResponseParser private val failureResponseParser: ResponseParser
-) : CallAdapter<T, Call<Result<T>>> {
+  private val successResponseParser: SuccessResponseParser,
+  private val failureResponseParser: FailureResponseParser
+) : CallAdapter<S, Call<NetworkResult<S, F>>> {
 
-  override fun responseType(): Type = successType
+  override fun responseType(): Type = successBodyType
 
-  override fun adapt(call: Call<T>): Call<Result<T>> {
-    return ResultCallDelegate(
-      delegate = call,
+  override fun adapt(call: Call<S>): Call<NetworkResult<S, F>> {
+    return NetworkResultCall(
+      apiCall = call,
+      successBodyType = successBodyType,
+      errorBodyConverter = errorBodyConverter,
       resourceProvider = resourceProvider,
       successResponseParser = successResponseParser,
       failureResponseParser = failureResponseParser

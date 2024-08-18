@@ -16,10 +16,10 @@
 
 package com.minaMikhail.networkErrorHandling.home.presentation.main
 
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.minaMikhail.networkErrorHandling.home.domain.useCase.GetArticlesUseCase
-import com.minaMikhail.networkErrorHandling.ui.base.BaseViewModel
-import com.minaMikhail.networkErrorHandling.ui.extensions.assignValue
+import com.minaMikhail.networkErrorHandling.network.utils.NetworkResult
 import com.minaMikhail.networkErrorHandling.utils.coroutineDispatchers.IoDispatcher
 import com.minaMikhail.networkErrorHandling.utils.coroutineDispatchers.MainDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -35,7 +35,7 @@ class MainViewModel @Inject constructor(
   @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
   @MainDispatcher private val mainDispatcher: CoroutineDispatcher,
   private val getArticlesUseCase: GetArticlesUseCase
-) : BaseViewModel() {
+) : ViewModel() {
 
   private val _mainScreenState = MutableStateFlow<MainScreenState>(MainScreenState.Default)
   val mainScreenState: StateFlow<MainScreenState> get() = _mainScreenState
@@ -52,28 +52,35 @@ class MainViewModel @Inject constructor(
     }
   }
 
-  private fun getArticles(pageSize: Int, page: Int, query: String) {
-    viewModelScope.launch(ioDispatcher) {
-      withContext(mainDispatcher) {
-        _mainScreenState.emit(MainScreenState.Loading)
+  private fun getArticles(
+    pageSize: Int,
+    page: Int,
+    query: String
+  ) = viewModelScope.launch(ioDispatcher) {
+    withContext(mainDispatcher) {
+      _mainScreenState.emit(MainScreenState.Loading)
+    }
+
+    when (val result = getArticlesUseCase(pageSize, page, query)) {
+      is NetworkResult.Success -> {
+        _mainScreenState.emit(
+          MainScreenState.Success(
+            articles = result.data
+          )
+        )
       }
 
-      getArticlesUseCase.invoke(
-        pageSize,
-        page,
-        query
-      ).fold(
-        onSuccess = {
-          showLoading.assignValue(false)
-
-          _mainScreenState.emit(MainScreenState.Success(it))
-        },
-        onFailure = {
-          showLoading.assignValue(false)
-
-          _mainScreenState.emit(MainScreenState.Error(it))
-        }
-      )
+      is NetworkResult.Failure -> {
+        _mainScreenState.emit(
+          MainScreenState.Error(
+            errorResponse = result.errorBody,
+            throwable = result.throwable,
+            code = result.code,
+            errorType = result.errorType,
+            errorMessage = result.errorMessage
+          )
+        )
+      }
     }
   }
 }

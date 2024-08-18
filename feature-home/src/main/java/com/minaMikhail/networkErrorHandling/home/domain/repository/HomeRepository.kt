@@ -16,7 +16,9 @@
 
 package com.minaMikhail.networkErrorHandling.home.domain.repository
 
+import com.minaMikhail.networkErrorHandling.home.data.dto.ArticlesErrorResponse
 import com.minaMikhail.networkErrorHandling.home.domain.model.Article
+import com.minaMikhail.networkErrorHandling.network.utils.NetworkResult
 
 interface HomeRepository {
 
@@ -24,5 +26,5 @@ interface HomeRepository {
     pageSize: Int,
     page: Int,
     query: String
-  ): Result<List<Article>>
+  ): NetworkResult<List<Article>, ArticlesErrorResponse>
 }

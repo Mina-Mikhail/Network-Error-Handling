@@ -14,11 +14,23 @@
  * limitations under the License.
  */
 
-package com.minaMikhail.networkErrorHandling.network.responseParser
+package com.minaMikhail.networkErrorHandling.network.responseParser.failure
 
+import com.minaMikhail.networkErrorHandling.network.model.ErrorResponse
+import com.minaMikhail.networkErrorHandling.network.utils.NetworkResult
+import okhttp3.ResponseBody
+import retrofit2.Converter
 import retrofit2.Response
 
-interface ResponseParser {
+interface FailureResponseParser {
 
-  fun <T> parse(response: Response<*>?): Result<T>
+  fun <S, F : ErrorResponse> parse(
+    errorBodyConverter: Converter<ResponseBody, F>,
+    response: Response<S>
+  ): NetworkResult<S, F>
+
+  fun <S, F : ErrorResponse> parse(
+    errorBodyConverter: Converter<ResponseBody, F>,
+    throwable: Throwable
+  ): NetworkResult<S, F>
 }

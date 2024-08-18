@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
-package com.minaMikhail.networkErrorHandling.utils.extensions
+package com.minaMikhail.networkErrorHandling.home.data.dto
 
-fun <T : Any> Throwable.obtainFailureResult(): Result<T> {
-  return Result.failure(
-    exception = this.cause ?: this.fillInStackTrace()
-  )
-}
+import com.google.gson.annotations.SerializedName
+import com.minaMikhail.networkErrorHandling.network.model.ErrorResponse
+
+data class ArticlesErrorResponse(
+  @SerializedName("status") val status: String? = null
+) : ErrorResponse()

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="no_internet_error_message">There is no internet connection. Please check your connection and try again.</string>
-  <string name="bad_gateway_message">Bad Gateway!</string>
   <string name="unauthorized_message">Unauthorized Access!</string>
   <string name="server_timeout_message">The Server can not be reachable, try again later!</string>
   <string name="general_network_error_message">Something went wrong, try again later!</string>
   <string name="json_body_error_message">Json body is not valid!</string>
+  <string name="server_internal_error">Server internal error!</string>
 </resources>

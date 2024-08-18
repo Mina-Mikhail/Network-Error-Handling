@@ -16,14 +16,11 @@
 
 package com.minaMikhail.networkErrorHandling.ui.base
 
-import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.viewbinding.ViewBinding
-import com.minaMikhail.networkErrorHandling.ui.extensions.observe
 
-abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel>(
+abstract class BaseFragment<VB : ViewBinding, VM>(
   override val bindingInflater: (LayoutInflater) -> VB
 ) : BasicFragment<VB>(bindingInflater) {
 
@@ -35,20 +32,4 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel>(
    * **/
   open val fullScreenViewGroup: ViewGroup
     get() = binding.root as ViewGroup
-
-  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    super.onViewCreated(view, savedInstanceState)
-
-    setUpBaseObservers()
-  }
-
-  private fun setUpBaseObservers() {
-    observe(viewModel.showLoading) { showLoading ->
-      if (showLoading) {
-        showLoading()
-      } else {
-        hideLoading()
-      }
-    }
-  }
 }

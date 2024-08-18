@@ -18,35 +18,35 @@ package com.minaMikhail.networkErrorHandling.network.responseParser.success
 
 import com.minaMikhail.networkErrorHandling.network.R
 import com.minaMikhail.networkErrorHandling.network.enums.NetworkError
-import com.minaMikhail.networkErrorHandling.network.exceptions.NetworkException
 import com.minaMikhail.networkErrorHandling.network.model.ErrorResponse
-import com.minaMikhail.networkErrorHandling.network.responseParser.ResponseParser
-import com.minaMikhail.networkErrorHandling.utils.providers.gsonMappingProvider.GsonMappingProvider
+import com.minaMikhail.networkErrorHandling.network.utils.NetworkResult
 import com.minaMikhail.networkErrorHandling.utils.providers.resourceProvider.ResourceProvider
+import java.lang.reflect.Type
 import javax.inject.Inject
 import retrofit2.Response
 
 class SuccessResponseParserImpl @Inject constructor(
-  private val resourceProvider: ResourceProvider,
-  private val gsonMappingProvider: GsonMappingProvider
-) : ResponseParser {
+  private val resourceProvider: ResourceProvider
+) : SuccessResponseParser {
 
   @Suppress("UNCHECKED_CAST")
-  override fun <T> parse(response: Response<*>?): Result<T> {
-    val errorBody = gsonMappingProvider.toJsonModel(
-      jsonString = response?.errorBody()?.string(),
-      modelClass = ErrorResponse::class.java
-    )
+  override fun <S, F : ErrorResponse> parse(
+    successBodyType: Type,
+    response: Response<S>
+  ): NetworkResult<S, F> {
+    val responseBody: S? = response.body()
 
-    return response?.body()?.let {
-      Result.success(value = it as T)
-    } ?: Result.failure(
-      exception = NetworkException(
-        code = response?.code(),
-        errorBody = errorBody,
-        errorType = NetworkError.Other.ILLEGAL_JSON_BODY_ERROR,
-        errorMessage = errorBody?.message ?: resourceProvider.getText(R.string.json_body_error_message)
-      )
-    )
+    return if (responseBody == null) {
+      if (successBodyType === Unit::class.java) {
+        NetworkResult.Success<Unit, F>(Unit) as NetworkResult<S, F>
+      } else {
+        NetworkResult.Failure(
+          errorType = NetworkError.Other.ILLEGAL_JSON_BODY_ERROR,
+          errorMessage = resourceProvider.getText(R.string.json_body_error_message)
+        )
+      }
+    } else {
+      NetworkResult.Success(responseBody)
+    }
   }
 }

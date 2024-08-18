@@ -20,7 +20,6 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.minaMikhail.networkErrorHandling.home.databinding.FragmentMainBinding
 import com.minaMikhail.networkErrorHandling.network.enums.NetworkError
-import com.minaMikhail.networkErrorHandling.network.exceptions.NetworkException
 import com.minaMikhail.networkErrorHandling.ui.base.BaseFragment
 import com.minaMikhail.networkErrorHandling.ui.extensions.collect
 import com.minaMikhail.networkErrorHandling.ui.extensions.hide
@@ -83,33 +82,24 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(
         }
 
         is MainScreenState.Error -> {
-          when (it.throwable) {
-            is NetworkException -> {
-              val errorTitle = "Error Happens"
+          val errorTitle = "Error Happens"
 
-              val errorMessage = StringBuilder()
-                .append("Error Code : ")
-                .append(it.throwable.code)
-                .append("\n")
-                .append("Error Type : ")
-                .append(it.throwable.errorType)
-                .append("\n")
-                .append("Error Message : ")
-                .append(it.throwable.errorMessage)
+          val errorMessage = StringBuilder()
+            .append("Error Code : ")
+            .append(it.code ?: "")
+            .append("\n")
+            .append("Error Type : ")
+            .append(it.errorType)
+            .append("\n")
+            .append("Error Message : ")
+            .append(it.errorMessage)
 
-              showError(title = errorTitle, message = errorMessage.toString())
+          showError(title = errorTitle, message = errorMessage.toString())
 
-              if (it.throwable.errorType == NetworkError.Network.NO_INTERNET_CONNECTION) {
-                showNoInternet()
-              } else {
-                showNoData()
-              }
-            }
-
-            else -> {
-              showNoData()
-              showError(message = it.throwable.message)
-            }
+          if (it.errorType == NetworkError.Network.NO_INTERNET_CONNECTION) {
+            showNoInternet()
+          } else {
+            showNoData()
           }
         }
       }

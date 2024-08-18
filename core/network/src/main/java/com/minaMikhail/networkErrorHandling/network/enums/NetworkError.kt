@@ -18,10 +18,10 @@ package com.minaMikhail.networkErrorHandling.network.enums
 
 sealed interface NetworkError {
   enum class Network : NetworkError {
-    BAD_GATEWAY,
     UNAUTHORIZED,
     GATEWAY_TIMEOUT,
-    NO_INTERNET_CONNECTION
+    NO_INTERNET_CONNECTION,
+    SERVER_ERROR
   }
 
   enum class Other : NetworkError {

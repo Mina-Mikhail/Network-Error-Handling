@@ -16,8 +16,10 @@
 
 package com.minaMikhail.networkErrorHandling.home.domain.useCase
 
+import com.minaMikhail.networkErrorHandling.home.data.dto.ArticlesErrorResponse
 import com.minaMikhail.networkErrorHandling.home.domain.model.Article
 import com.minaMikhail.networkErrorHandling.home.domain.repository.HomeRepository
+import com.minaMikhail.networkErrorHandling.network.utils.NetworkResult
 import javax.inject.Inject
 
 class GetArticlesUseCase @Inject constructor(
@@ -28,7 +30,7 @@ class GetArticlesUseCase @Inject constructor(
     pageSize: Int,
     page: Int,
     query: String
-  ): Result<List<Article>> {
+  ): NetworkResult<List<Article>, ArticlesErrorResponse> {
     return repository.getArticles(pageSize, page, query)
   }
 }

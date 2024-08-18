@@ -18,8 +18,6 @@ package com.minaMikhail.networkErrorHandling.network.model
 
 import com.google.gson.annotations.SerializedName
 
-data class ErrorResponse(
-  @SerializedName("status") val status: String? = null,
-  @SerializedName("code") val code: String? = null,
+open class ErrorResponse(
   @SerializedName("message") val message: String? = null
 )

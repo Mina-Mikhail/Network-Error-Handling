@@ -17,10 +17,11 @@
 package com.minaMikhail.networkErrorHandling.home.data.repository
 
 import com.minaMikhail.networkErrorHandling.home.data.dataSource.remote.HomeServices
+import com.minaMikhail.networkErrorHandling.home.data.dto.ArticlesErrorResponse
 import com.minaMikhail.networkErrorHandling.home.data.mapper.ArticleDtoMapper
 import com.minaMikhail.networkErrorHandling.home.domain.model.Article
 import com.minaMikhail.networkErrorHandling.home.domain.repository.HomeRepository
-import com.minaMikhail.networkErrorHandling.utils.extensions.obtainFailureResult
+import com.minaMikhail.networkErrorHandling.network.utils.NetworkResult
 import javax.inject.Inject
 
 class HomeRepositoryImpl @Inject constructor(
@@ -32,14 +33,23 @@ class HomeRepositoryImpl @Inject constructor(
     pageSize: Int,
     page: Int,
     query: String
-  ): Result<List<Article>> = apiServices.getArticles(pageSize, page, query).fold(
-    onSuccess = {
-      return@fold Result.success(
-        value = articleDtoMapper.mapToDomainList(it.results)
-      )
-    },
-    onFailure = {
-      return@fold it.obtainFailureResult()
+  ): NetworkResult<List<Article>, ArticlesErrorResponse> {
+    return when (val response = apiServices.getArticles(pageSize, page, query)) {
+      is NetworkResult.Success -> {
+        NetworkResult.Success(
+          data = articleDtoMapper.mapToDomainList(response.data.results)
+        )
+      }
+
+      is NetworkResult.Failure -> {
+        NetworkResult.Failure(
+          errorBody = response.errorBody,
+          throwable = response.throwable,
+          code = response.code,
+          errorType = response.errorType,
+          errorMessage = response.errorMessage
+        )
+      }
     }
-  )
+  }
 }

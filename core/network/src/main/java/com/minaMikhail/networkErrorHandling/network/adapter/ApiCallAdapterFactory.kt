@@ -16,9 +16,10 @@
 
 package com.minaMikhail.networkErrorHandling.network.adapter
 
-import com.minaMikhail.networkErrorHandling.network.responseParser.ResponseParser
-import com.minaMikhail.networkErrorHandling.network.responseParser.di.FailureResponseParser
-import com.minaMikhail.networkErrorHandling.network.responseParser.di.SuccessResponseParser
+import com.minaMikhail.networkErrorHandling.network.model.ErrorResponse
+import com.minaMikhail.networkErrorHandling.network.responseParser.failure.FailureResponseParser
+import com.minaMikhail.networkErrorHandling.network.responseParser.success.SuccessResponseParser
+import com.minaMikhail.networkErrorHandling.network.utils.NetworkResult
 import com.minaMikhail.networkErrorHandling.utils.providers.resourceProvider.ResourceProvider
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
@@ -29,8 +30,8 @@ import retrofit2.Retrofit
 
 class ApiCallAdapterFactory @Inject constructor(
   private val resourceProvider: ResourceProvider,
-  @SuccessResponseParser private val successResponseParser: ResponseParser,
-  @FailureResponseParser private val failureResponseParser: ResponseParser
+  private val successResponseParser: SuccessResponseParser,
+  private val failureResponseParser: FailureResponseParser
 ) : CallAdapter.Factory() {
 
   override fun get(
@@ -38,23 +39,42 @@ class ApiCallAdapterFactory @Inject constructor(
     annotations: Array<out Annotation>,
     retrofit: Retrofit
   ): CallAdapter<*, *>? {
-    if (getRawType(returnType) != Call::class.java || returnType !is ParameterizedType) {
+    if (returnType !is ParameterizedType) {
       return null
     }
 
-    val typeArguments = getParameterUpperBound(0, returnType)
+    val argumentType = getParameterUpperBound(0, returnType)
+    if (getRawType(argumentType) != NetworkResult::class.java) {
+      return null
+    }
 
-    return if (typeArguments is ParameterizedType && typeArguments.rawType == Result::class.java) {
-      val successType = getParameterUpperBound(0, typeArguments)
+    if (argumentType !is ParameterizedType) {
+      return null
+    }
 
-      ApiCallAdapter<Any>(
-        successType = successType,
-        resourceProvider = resourceProvider,
-        successResponseParser = successResponseParser,
-        failureResponseParser = failureResponseParser
-      )
-    } else {
-      null
+    val successBodyType = getParameterUpperBound(0, argumentType)
+    val failureBodyType = getParameterUpperBound(1, argumentType)
+
+    val errorBodyConverter = retrofit.nextResponseBodyConverter<ErrorResponse>(
+      null,
+      failureBodyType,
+      annotations
+    )
+
+    return when (getRawType(returnType)) {
+      Call::class.java -> {
+        ApiCallAdapter<Any, ErrorResponse>(
+          successBodyType = successBodyType,
+          errorBodyConverter = errorBodyConverter,
+          resourceProvider = resourceProvider,
+          successResponseParser = successResponseParser,
+          failureResponseParser = failureResponseParser
+        )
+      }
+
+      else -> {
+        null
+      }
     }
   }
 }

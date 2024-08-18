@@ -14,15 +14,22 @@
  * limitations under the License.
  */
 
-package com.minaMikhail.networkErrorHandling.ui.extensions
+package com.minaMikhail.networkErrorHandling.network.utils
 
-import android.os.Looper
-import androidx.lifecycle.MutableLiveData
+import com.minaMikhail.networkErrorHandling.network.enums.NetworkError
+import com.minaMikhail.networkErrorHandling.network.model.ErrorResponse
 
-fun <T> MutableLiveData<T>.assignValue(newValue: T?) {
-  if (Looper.myLooper() == Looper.getMainLooper()) {
-    this.value = newValue
-  } else {
-    this.postValue(newValue)
-  }
+sealed interface NetworkResult<S, F : ErrorResponse> {
+
+  data class Success<S, F : ErrorResponse>(
+    val data: S
+  ) : NetworkResult<S, F>
+
+  data class Failure<S, F : ErrorResponse>(
+    val errorBody: F? = null,
+    val throwable: Throwable? = null,
+    val code: Int? = null,
+    val errorType: NetworkError,
+    val errorMessage: String? = null
+  ) : NetworkResult<S, F>
 }

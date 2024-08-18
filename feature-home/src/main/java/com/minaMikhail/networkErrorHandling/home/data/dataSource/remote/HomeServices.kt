@@ -17,7 +17,9 @@
 package com.minaMikhail.networkErrorHandling.home.data.dataSource.remote
 
 import com.minaMikhail.networkErrorHandling.home.data.dto.ArticleDto
+import com.minaMikhail.networkErrorHandling.home.data.dto.ArticlesErrorResponse
 import com.minaMikhail.networkErrorHandling.network.model.BaseResponse
+import com.minaMikhail.networkErrorHandling.network.utils.NetworkResult
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -28,5 +30,5 @@ interface HomeServices {
     @Query("pageSize") pageSize: Int,
     @Query("page") page: Int,
     @Query("q") query: String
-  ): Result<BaseResponse<List<ArticleDto>>>
+  ): NetworkResult<BaseResponse<List<ArticleDto>>, ArticlesErrorResponse>
 }

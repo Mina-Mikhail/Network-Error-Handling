@@ -16,8 +16,9 @@
 
 package com.minaMikhail.networkErrorHandling.network.responseParser.di
 
-import com.minaMikhail.networkErrorHandling.network.responseParser.ResponseParser
+import com.minaMikhail.networkErrorHandling.network.responseParser.failure.FailureResponseParser
 import com.minaMikhail.networkErrorHandling.network.responseParser.failure.FailureResponseParserImpl
+import com.minaMikhail.networkErrorHandling.network.responseParser.success.SuccessResponseParser
 import com.minaMikhail.networkErrorHandling.network.responseParser.success.SuccessResponseParserImpl
 import dagger.Binds
 import dagger.Module
@@ -31,15 +32,13 @@ interface ResponseParserModule {
 
   @Binds
   @Singleton
-  @SuccessResponseParser
   fun bindSuccessResponseParser(
     successResponseParserImpl: SuccessResponseParserImpl
-  ): ResponseParser
+  ): SuccessResponseParser
 
   @Binds
   @Singleton
-  @FailureResponseParser
   fun bindFailureResponseParser(
     failureResponseParserImpl: FailureResponseParserImpl
-  ): ResponseParser
+  ): FailureResponseParser
 }
